@@ -416,7 +416,7 @@ int id article_title 0x7f0d004d
 int id beginning 0x7f0d0013
 int id checkbox 0x7f0d0029
 int id collapseActionView 0x7f0d0017
-int id content_scrim 0x7f0d004b
+int id content_scrim 0x7f0d004a
 int id decor_content_parent 0x7f0d002f
 int id default_activity_button 0x7f0d0024
 int id dialog 0x7f0d001b
@@ -440,8 +440,8 @@ int id never 0x7f0d0019
 int id none 0x7f0d000e
 int id normal 0x7f0d000a
 int id pager 0x7f0d003f
-int id photo 0x7f0d004a
-int id photo_container 0x7f0d0049
+int id photo 0x7f0d0049
+int id photo_container 0x7f0d0048
 int id progress_circular 0x7f0d0005
 int id progress_horizontal 0x7f0d0006
 int id radio 0x7f0d002b
@@ -458,8 +458,7 @@ int id search_mag_icon 0x7f0d0038
 int id search_plate 0x7f0d0039
 int id search_src_text 0x7f0d003a
 int id search_voice_btn 0x7f0d003e
-int id share 0x7f0d0053
-int id share_fab 0x7f0d0048
+int id share_fab 0x7f0d004b
 int id shortcut 0x7f0d002a
 int id showCustom 0x7f0d000f
 int id showHome 0x7f0d0010
@@ -509,7 +508,6 @@ int layout fragment_article_detail 0x7f040018
 int layout list_item_article 0x7f040019
 int layout support_simple_spinner_dropdown_item 0x7f04001a
 int menu main 0x7f0e0000
-int menu menu_detail 0x7f0e0001
 int mipmap ic_launcher 0x7f030000
 int string abc_action_bar_home_description 0x7f060000
 int string abc_action_bar_home_description_format 0x7f060001

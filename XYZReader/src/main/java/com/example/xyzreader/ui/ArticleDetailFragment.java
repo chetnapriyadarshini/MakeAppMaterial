@@ -219,8 +219,9 @@ public class ArticleDetailFragment extends Fragment implements
                                 Palette p = Palette.generate(bitmap, 12);
                                 mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
-                                mRootView.findViewById(R.id.meta_bar)
-                                        .setBackgroundColor(mMutedColor);
+                                //commenting this out, to see how a complete image background looks
+                                /*mRootView.findViewById(R.id.meta_bar)
+                                        .setBackgroundColor(mMutedColor);*/
                                 updateStatusBar();
                             }
                         }

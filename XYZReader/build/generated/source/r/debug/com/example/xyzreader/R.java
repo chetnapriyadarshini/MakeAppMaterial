@@ -1485,7 +1485,7 @@ containing a value of this type.
         public static final int beginning=0x7f0d0013;
         public static final int checkbox=0x7f0d0029;
         public static final int collapseActionView=0x7f0d0017;
-        public static final int content_scrim=0x7f0d004b;
+        public static final int content_scrim=0x7f0d004a;
         public static final int decor_content_parent=0x7f0d002f;
         public static final int default_activity_button=0x7f0d0024;
         public static final int dialog=0x7f0d001b;
@@ -1509,8 +1509,8 @@ containing a value of this type.
         public static final int none=0x7f0d000e;
         public static final int normal=0x7f0d000a;
         public static final int pager=0x7f0d003f;
-        public static final int photo=0x7f0d004a;
-        public static final int photo_container=0x7f0d0049;
+        public static final int photo=0x7f0d0049;
+        public static final int photo_container=0x7f0d0048;
         public static final int progress_circular=0x7f0d0005;
         public static final int progress_horizontal=0x7f0d0006;
         public static final int radio=0x7f0d002b;
@@ -1527,8 +1527,7 @@ containing a value of this type.
         public static final int search_plate=0x7f0d0039;
         public static final int search_src_text=0x7f0d003a;
         public static final int search_voice_btn=0x7f0d003e;
-        public static final int share=0x7f0d0053;
-        public static final int share_fab=0x7f0d0048;
+        public static final int share_fab=0x7f0d004b;
         public static final int shortcut=0x7f0d002a;
         public static final int showCustom=0x7f0d000f;
         public static final int showHome=0x7f0d0010;
@@ -1584,7 +1583,6 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0e0000;
-        public static final int menu_detail=0x7f0e0001;
     }
     public static final class mipmap {
         public static final int ic_launcher=0x7f030000;
