@@ -1,5 +1,6 @@
 <com.example.xyzreader.ui.DrawInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/draw_insets_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,22 +14,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+            <ImageButton android:id="@+id/share_fab"
+                android:stateListAnimator="@anim/fab_state_list_anim"
+                android:background="@android:color/transparent"
+                android:layout_gravity="right|end"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin_right"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_share"
+                android:elevation="@dimen/fab_elevation"
+                android:contentDescription="@string/action_share" />
+
             <FrameLayout
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/photo_placeholder">
+                android:layout_height="wrap_content">
                 <!--suppress AndroidLintContentDescription -->
+
+
                 <ImageView
                     android:id="@+id/photo"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                     />
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
                 <View
+                    android:id="@+id/content_scrim"
                     android:layout_width="match_parent"
-                    android:layout_height="112dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/photo_background_protection" />
+
 
             </FrameLayout>
 
@@ -54,6 +72,7 @@
                     android:paddingTop="@dimen/detail_metabar_vert_padding"
                     android:paddingBottom="@dimen/detail_metabar_vert_padding"
                     android:layout_marginBottom="@dimen/detail_metabar_vert_padding">
+
 
                     <TextView
                         android:id="@+id/article_title"
@@ -92,16 +111,5 @@
         </FrameLayout>
     </com.example.xyzreader.ui.ObservableScrollView>
 
-    <ImageButton android:id="@+id/share_fab"
-        android:stateListAnimator="@anim/fab_state_list_anim"
-        android:background="@drawable/add_fab_background"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_share"
-        android:elevation="@dimen/fab_elevation"
-        android:contentDescription="@string/action_share" />
 
 </com.example.xyzreader.ui.DrawInsetsFrameLayout>

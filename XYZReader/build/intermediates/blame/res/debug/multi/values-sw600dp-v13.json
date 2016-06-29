@@ -11,14 +11,7 @@
                     "endOffset": 120
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 280,
-                        "endColumn": 69,
-                        "endOffset": 345
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             },
             {
@@ -30,14 +23,7 @@
                     "endOffset": 190
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 350,
-                        "endColumn": 69,
-                        "endOffset": 415
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             },
             {
@@ -49,14 +35,7 @@
                     "endOffset": 249
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 645,
-                        "endColumn": 58,
-                        "endOffset": 699
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             },
             {
@@ -68,14 +47,7 @@
                     "endOffset": 320
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 929,
-                        "endColumn": 70,
-                        "endOffset": 995
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             },
             {
@@ -87,14 +59,7 @@
                     "endOffset": 388
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 1000,
-                        "endColumn": 67,
-                        "endOffset": 1063
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             },
             {
@@ -106,14 +71,7 @@
                     "endOffset": 445
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 325,
-                        "endColumn": 56,
-                        "endOffset": 377
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -125,14 +83,7 @@
                     "endOffset": 498
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 90,
-                        "endColumn": 52,
-                        "endOffset": 138
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml"
                 }
             },
             {
@@ -144,14 +95,7 @@
                     "endOffset": 553
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 88,
-                        "endColumn": 54,
-                        "endOffset": 138
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -163,14 +107,7 @@
                     "endOffset": 610
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 143,
-                        "endColumn": 56,
-                        "endOffset": 195
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -182,14 +119,7 @@
                     "endOffset": 676
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 6,
-                        "startColumn": 4,
-                        "startOffset": 259,
-                        "endColumn": 65,
-                        "endOffset": 320
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -201,14 +131,7 @@
                     "endOffset": 735
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 200,
-                        "endColumn": 58,
-                        "endOffset": 254
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -220,14 +143,7 @@
                     "endOffset": 787
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 36,
-                        "endColumn": 51,
-                        "endOffset": 83
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\macro_layout.xml"
                 }
             },
             {
@@ -239,14 +155,7 @@
                     "endOffset": 841
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 36,
-                        "endColumn": 53,
-                        "endOffset": 85
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml"
                 }
             },
             {
@@ -258,14 +167,7 @@
                     "endOffset": 883
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 238,
-                        "endColumn": 41,
-                        "endOffset": 275
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml"
                 }
             },
             {
@@ -273,17 +175,17 @@
                     "startLine": 16,
                     "startColumn": 4,
                     "startOffset": 888,
-                    "endColumn": 94,
-                    "endOffset": 978
+                    "endColumn": 47,
+                    "endOffset": 931
                 },
                 "from": {
                     "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
-                        "startLine": 4,
+                        "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 143,
-                        "endColumn": 94,
-                        "endOffset": 233
+                        "startOffset": 280,
+                        "endColumn": 47,
+                        "endOffset": 323
                     }
                 }
             },
@@ -291,19 +193,24 @@
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 983,
-                    "endColumn": 54,
-                    "endOffset": 1033
+                    "startOffset": 936,
+                    "endColumn": 94,
+                    "endOffset": 1026
                 },
                 "from": {
-                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1068,
-                        "endColumn": 54,
-                        "endOffset": 1118
-                    }
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\values-sw600dp\\dimens.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1031,
+                    "endColumn": 54,
+                    "endOffset": 1081
+                },
+                "from": {
+                    "file": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\values-sw600dp-v13\\values.xml"
                 }
             }
         ]

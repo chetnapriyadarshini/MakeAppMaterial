@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\res\\merged\\debug\\menu\\menu_detail.xml",
+        "source": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\menu\\menu_detail.xml"
+    },
+    {
         "merged": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
         "source": "C:\\Users\\chetna_priya\\AndroidStudioProjects\\XYZReader\\src\\main\\res\\menu\\main.xml"
     }
