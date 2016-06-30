@@ -21,5 +21,16 @@
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/up"
             android:src="@drawable/ic_arrow_back" />
+
+        <ImageButton android:id="@+id/share_fab"
+            android:stateListAnimator="@anim/fab_state_list_anim"
+            android:background="@drawable/white_selectable_item_background_circle"
+            android:layout_gravity="right|end"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_share"
+            android:elevation="@dimen/fab_elevation"
+            android:contentDescription="@string/action_share" />
     </FrameLayout>
 </FrameLayout>

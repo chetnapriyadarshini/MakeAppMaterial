@@ -37,7 +37,7 @@
                     android:background="@drawable/photo_background_protection" />
 
 
-                <ImageButton android:id="@+id/share_fab"
+                <!--<ImageButton android:id="@+id/share_fab"
                     android:stateListAnimator="@anim/fab_state_list_anim"
                     android:background="@drawable/white_selectable_item_background_circle"
                     android:layout_gravity="right|end"
@@ -47,7 +47,7 @@
                     android:layout_height="56dp"
                     android:src="@drawable/ic_share"
                     android:elevation="@dimen/fab_elevation"
-                    android:contentDescription="@string/action_share" />
+                    android:contentDescription="@string/action_share" />-->
 
                 <LinearLayout
                     android:id="@+id/meta_bar"
