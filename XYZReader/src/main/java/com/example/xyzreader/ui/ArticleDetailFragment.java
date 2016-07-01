@@ -61,7 +61,6 @@ public class ArticleDetailFragment extends Fragment implements
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
-    private ShareActionProvider mShareActionProvider;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -136,7 +135,6 @@ public class ArticleDetailFragment extends Fragment implements
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
         mBackground_protection_view = mRootView.findViewById(R.id.content_scrim);
 
-
         mStatusBarColorDrawable = new ColorDrawable(0);
 
        /* mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
@@ -167,9 +165,7 @@ public class ArticleDetailFragment extends Fragment implements
         }
         mStatusBarColorDrawable.setColor(color);
         mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
-        mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                mPhotoView.getHeight()));
-    }
+            }
 
     static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
@@ -216,9 +212,12 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
+                               // Palette p = Palette.generate(bitmap, 12);
                               //  mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                Log.d(TAG, "Photo view height: "+bitmap.getHeight());
+                                mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                        bitmap.getHeight()));
                                 //commenting this out, to see how a complete image background looks
                                 /*mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);*/
