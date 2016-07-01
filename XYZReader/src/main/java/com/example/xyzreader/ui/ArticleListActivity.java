@@ -171,6 +171,7 @@ public class ArticleListActivity extends ActionBarActivity implements
                                  int darkMutedColor = p.getDarkMutedColor(0xFF333333);
                                 int lightMutedcolor =  p.getLightMutedColor(Color.WHITE);
                                 holder.titleView.setBackgroundColor(darkMutedColor);
+                                holder.titleView.setTextColor(lightMutedcolor);
                                 holder.subtitleView.setBackgroundColor(darkMutedColor);
                                 holder.subtitleView.setTextColor(lightMutedcolor);
                             }
