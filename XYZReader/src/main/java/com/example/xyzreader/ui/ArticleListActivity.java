@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.graphics.Palette;
@@ -146,12 +147,15 @@ public class ArticleListActivity extends ActionBarActivity implements
                 @Override
                 public void onClick(View view) {
                     //Add transition animation on activity exit
+                    ViewCompat.setTransitionName(vh.thumbnailView,
+                            getString(R.string.poster).concat(String.valueOf(vh.getAdapterPosition())));
                     Bundle bundle = null;
                   //  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                     {
                         bundle = ActivityOptionsCompat.
                                 makeSceneTransitionAnimation(ArticleListActivity.this,
-                                       new Pair<View, String>(vh.thumbnailView, getString(R.string.poster))).toBundle();
+                                       new Pair<View, String>(vh.thumbnailView,
+                                               getString(R.string.poster).concat(String.valueOf(ArticleLoader.Query._ID)))).toBundle();
                     }
                     Log.d(TAG, "POSITION SENTTTTTTTT: "+vh.getAdapterPosition());
                     startActivity(new Intent(Intent.ACTION_VIEW,
@@ -176,7 +180,7 @@ public class ArticleListActivity extends ActionBarActivity implements
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader();
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),imageLoader);
-            //set the background color of the thumbnail as the color the card should be
+
             imageLoader.get(mCursor.getString(ArticleLoader.Query.THUMB_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
