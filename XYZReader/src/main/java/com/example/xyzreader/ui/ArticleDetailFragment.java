@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -18,13 +20,16 @@ import android.support.v7.widget.ShareActionProvider;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -67,6 +72,7 @@ public class ArticleDetailFragment extends Fragment implements
      * fragment (e.g. upon screen orientation changes).
      */
     public ArticleDetailFragment() {
+
     }
 
     public static ArticleDetailFragment newInstance(long itemId) {
@@ -76,6 +82,7 @@ public class ArticleDetailFragment extends Fragment implements
         fragment.setArguments(arguments);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +139,7 @@ public class ArticleDetailFragment extends Fragment implements
         });
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
+
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
         mBackground_protection_view = mRootView.findViewById(R.id.content_scrim);
 
@@ -222,6 +230,9 @@ public class ArticleDetailFragment extends Fragment implements
                                 /*mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);*/
                                 updateStatusBar();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    getActivity().startPostponedEnterTransition();
+                                }
                             }
                         }
 
