@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<slide xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/abc_config_activityShortDur"
+    android:transitionOrdering="sequential"
+    android:interpolator="@android:interpolator/linear_out_slow_in">
+    <targets android:targetId="@id/article_body"/>
+
+</slide>

@@ -147,17 +147,17 @@ public class ArticleListActivity extends ActionBarActivity implements
                 @Override
                 public void onClick(View view) {
                     //Add transition animation on activity exit
-                    ViewCompat.setTransitionName(vh.thumbnailView,
-                            getString(R.string.poster).concat(String.valueOf(vh.getAdapterPosition())));
+                    String transitionName = getString(R.string.poster)
+                            .concat(String.valueOf(vh.getAdapterPosition()));
                     Bundle bundle = null;
                   //  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                     {
                         bundle = ActivityOptionsCompat.
                                 makeSceneTransitionAnimation(ArticleListActivity.this,
                                        new Pair<View, String>(vh.thumbnailView,
-                                               getString(R.string.poster).concat(String.valueOf(ArticleLoader.Query._ID)))).toBundle();
+                                               transitionName)).toBundle();
                     }
-                    Log.d(TAG, "POSITION SENTTTTTTTT: "+vh.getAdapterPosition());
+                    Log.d(TAG, "TRANSITION NAME FIRST ACTIVITY: "+transitionName);
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))),bundle);
                 }

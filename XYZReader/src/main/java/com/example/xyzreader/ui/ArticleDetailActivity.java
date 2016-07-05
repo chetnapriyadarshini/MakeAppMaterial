@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.ImageView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
@@ -183,7 +184,14 @@ public class ArticleDetailActivity extends ActionBarActivity
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
             super.setPrimaryItem(container, position, object);
-            Log.d(LOG_TAG, "POSITION QUERIEDDDDDDDD PRIMARY ITEM: "+position);
+            Log.d(LOG_TAG , "Called for positionnnn "+position);
+            ImageView imageView = (ImageView) container.findViewById(R.id.photo);
+            if(imageView != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    imageView.setTransitionName(getString(R.string.poster).concat(String.valueOf(position)));
+                    Log.d(LOG_TAG, "POSITION QUERIEDDDDDDDD PRIMARY ITEM: " + imageView.getTransitionName());
+                }
+            }
             ArticleDetailFragment fragment = (ArticleDetailFragment) object;
             if (fragment != null) {
                 mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();

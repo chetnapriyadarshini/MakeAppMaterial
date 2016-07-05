@@ -135,10 +135,11 @@ public class ArticleDetailFragment extends Fragment implements
         });
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mPhotoView.setTransitionName(getActivity().getString(R.string.poster).concat(String.valueOf(mItemId)));
         }
-
+        Log.d(TAG, "Transition Name in second fragment: "+mPhotoView.getTransitionName());
+*/
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
         mBackground_protection_view = mRootView.findViewById(R.id.content_scrim);
 
