@@ -18,11 +18,13 @@ import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -45,7 +47,9 @@ public class ArticleDetailFragment extends Fragment implements
     private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_POS = "item_pos";
     private static final float PARALLAX_FACTOR = 1f;//changed from 1.25f to 1f as the height of the image view is increased
+    private static final String ARG_ARTICLE_START_POS = "article_starting_pos";
 
     private Cursor mCursor;
     private long mItemId;
@@ -71,9 +75,11 @@ public class ArticleDetailFragment extends Fragment implements
 
     }
 
-    public static ArticleDetailFragment newInstance(long itemId) {
+    public static ArticleDetailFragment newInstance(long itemId, int position, int startingposition) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
+        arguments.putInt(ARG_ITEM_POS, position);
+        arguments.putInt(ARG_ARTICLE_START_POS,startingposition );
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
@@ -87,7 +93,6 @@ public class ArticleDetailFragment extends Fragment implements
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
-
         mIsCard = getResources().getBoolean(R.bool.detail_is_card);
         mStatusBarFullOpacityBottom = getResources().getDimensionPixelSize(
                 R.dimen.detail_card_top_margin);
@@ -135,11 +140,9 @@ public class ArticleDetailFragment extends Fragment implements
         });
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mPhotoView.setTransitionName(getActivity().getString(R.string.poster).concat(String.valueOf(mItemId)));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mPhotoView.setTransitionName(Constants.article_name[getArguments().getInt(ARG_ITEM_POS)]);
         }
-        Log.d(TAG, "Transition Name in second fragment: "+mPhotoView.getTransitionName());
-*/
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
         mBackground_protection_view = mRootView.findViewById(R.id.content_scrim);
 
@@ -193,7 +196,6 @@ public class ArticleDetailFragment extends Fragment implements
         if (mRootView == null) {
             return;
         }
-
         TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
@@ -222,7 +224,10 @@ public class ArticleDetailFragment extends Fragment implements
                             if (bitmap != null) {
                                // Palette p = Palette.generate(bitmap, 12);
                               //  mMutedColor = p.getDarkMutedColor(0xFF333333);
-                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    startPostponedEnterTransition();
+                                }
+                                mPhotoView.setImageBitmap(bitmap);
                                 Log.d(TAG, "Photo view height: "+bitmap.getHeight());
                                 mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                         bitmap.getHeight()));
@@ -230,14 +235,13 @@ public class ArticleDetailFragment extends Fragment implements
                                 /*mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);*/
                                 updateStatusBar();
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    getActivity().startPostponedEnterTransition();
-                                }
                             }
                         }
 
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
+                            Log.d(TAG, "Error: "+volleyError.getMessage());
+                            volleyError.printStackTrace();
 
                         }
                     });
@@ -246,6 +250,23 @@ public class ArticleDetailFragment extends Fragment implements
             titleView.setText("N/A");
             bylineView.setText("N/A" );
             bodyView.setText("N/A");
+        }
+    }
+
+    private void startPostponedEnterTransition() {
+        int pos = getArguments().getInt(ARG_ITEM_POS);
+        int starting_pos = getArguments().getInt(ARG_ARTICLE_START_POS);
+        if(pos == starting_pos){
+            mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getActivity().startPostponedEnterTransition();
+                    }
+                    return true;
+                }
+            });
         }
     }
 
@@ -290,4 +311,7 @@ public class ArticleDetailFragment extends Fragment implements
                 : mPhotoView.getHeight() - mScrollY;
     }
 
+    public ImageView getPhotoView() {
+        return mPhotoView;
+    }
 }

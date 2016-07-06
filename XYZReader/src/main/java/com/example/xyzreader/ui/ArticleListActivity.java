@@ -10,8 +10,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,6 +28,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +38,9 @@ import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
@@ -46,17 +52,44 @@ public class ArticleListActivity extends ActionBarActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ArticleListActivity.class.getSimpleName();
+    public static final String EXTRA_STARTING_ARTICLE_POSITION = "extra_starting_article_position";
+    public static final String EXTRA_CURRENT_ARTICLE_POSITION = "extra_current_article_position";
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private Bundle mTempReenterTransition;
 
+    private SharedElementCallback sharedElementCallback = new SharedElementCallback() {
+        @Override
+        public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+            super.onMapSharedElements(names, sharedElements);
+            if(mTempReenterTransition != null){
+                int startingposition = mTempReenterTransition.getInt(EXTRA_STARTING_ARTICLE_POSITION);
+                int currentposition = mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION);
+                if(startingposition != currentposition){
+                    //user changed the page he originally entered update shared element
+                    //so that the transition takes place on appropiriate element
+                    String newTransitionName = Constants.article_name[currentposition];
+                    View newSharedElement = mRecyclerView.findViewWithTag(Constants.article_name[currentposition]);
+                    names.clear();
+                    names.add(newTransitionName);
+                    sharedElements.clear();
+                    sharedElements.put(newTransitionName, newSharedElement);
+
+                }
+                mTempReenterTransition = null;
+            }else {
+
+            }
+        }
+    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
-
+        setExitSharedElementCallback(sharedElementCallback);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -70,6 +103,32 @@ public class ArticleListActivity extends ActionBarActivity implements
         if (savedInstanceState == null) {
             refresh();
         }
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+        mTempReenterTransition = new Bundle(data.getExtras());
+        int startingposition = mTempReenterTransition.getInt(EXTRA_STARTING_ARTICLE_POSITION);
+        int currentposition = mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION);
+        if(startingposition != currentposition)
+            mRecyclerView.scrollToPosition(currentposition);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition();
+        }
+        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                mRecyclerView.requestLayout();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startPostponedEnterTransition();
+                }
+                return true;
+            }
+        });
+
+
     }
 
     private void refresh() {
@@ -143,23 +202,24 @@ public class ArticleListActivity extends ActionBarActivity implements
         public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
             final ViewHolder vh = new ViewHolder(view);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Add transition animation on activity exit
-                    String transitionName = getString(R.string.poster)
-                            .concat(String.valueOf(vh.getAdapterPosition()));
                     Bundle bundle = null;
-                  //  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                     {
                         bundle = ActivityOptionsCompat.
                                 makeSceneTransitionAnimation(ArticleListActivity.this,
                                        new Pair<View, String>(vh.thumbnailView,
-                                               transitionName)).toBundle();
+                                               vh.thumbnailView.getTransitionName())).toBundle();
                     }
-                    Log.d(TAG, "TRANSITION NAME FIRST ACTIVITY: "+transitionName);
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))),bundle);
+               //     Log.d(TAG, "TRANSITION NAME FIRST ACTIVITY: "+transitionName);
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+                    intent.putExtra(EXTRA_STARTING_ARTICLE_POSITION, vh.getAdapterPosition());
+                    startActivity(intent,bundle);
                 }
             });
             return vh;
@@ -180,6 +240,10 @@ public class ArticleListActivity extends ActionBarActivity implements
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader();
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),imageLoader);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.thumbnailView.setTransitionName(Constants.article_name[position]);
+            }
+            holder.thumbnailView.setTag(Constants.article_name[position]);
 
             imageLoader.get(mCursor.getString(ArticleLoader.Query.THUMB_URL), new ImageLoader.ImageListener() {
                         @Override
