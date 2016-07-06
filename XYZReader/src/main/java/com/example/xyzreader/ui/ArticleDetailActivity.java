@@ -98,14 +98,15 @@ public class ArticleDetailActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition();
+        }
+        setEnterSharedElementCallback(sharedElementCallback);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                             View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-        setEnterSharedElementCallback(sharedElementCallback);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition();
-        }
+
         mStartingposition = getIntent().getIntExtra(ArticleListActivity.EXTRA_STARTING_ARTICLE_POSITION, 0);
         if(savedInstanceState != null)
             mCurentposition = savedInstanceState.getInt(STATE_CURRENT_PAGE_POSITION);
@@ -245,9 +246,9 @@ public class ArticleDetailActivity extends ActionBarActivity
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
 
             super.setPrimaryItem(container, position, object);
-            ArticleDetailFragment fragment = (ArticleDetailFragment) object;
-            if (fragment != null) {
-                mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
+            mArticleDetailFragment = (ArticleDetailFragment) object;
+            if (mArticleDetailFragment != null) {
+                mSelectedItemUpButtonFloor = mArticleDetailFragment.getUpButtonFloor();
                 updateUpAndShareButtonPosition();
             }
         }
@@ -255,9 +256,8 @@ public class ArticleDetailActivity extends ActionBarActivity
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
-            mArticleDetailFragment =  ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID),
+            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID),
                     position, mStartingposition);
-            return mArticleDetailFragment;
         }
 
         @Override
