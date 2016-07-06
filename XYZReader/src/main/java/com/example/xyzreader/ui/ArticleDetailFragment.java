@@ -257,6 +257,7 @@ public class ArticleDetailFragment extends Fragment implements
         int pos = getArguments().getInt(ARG_ITEM_POS);
         int starting_pos = getArguments().getInt(ARG_ARTICLE_START_POS);
         if(pos == starting_pos){
+            Log.d(TAG, "TRANSITION NAME IN FRAGMENT: "+mPhotoView.getTransitionName());
             mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {

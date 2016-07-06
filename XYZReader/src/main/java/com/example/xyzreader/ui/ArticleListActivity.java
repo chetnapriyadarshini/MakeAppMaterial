@@ -61,6 +61,13 @@ public class ArticleListActivity extends ActionBarActivity implements
 
     private SharedElementCallback sharedElementCallback = new SharedElementCallback() {
         @Override
+        public void onSharedElementStart(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
+            super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots);
+            Log.d(TAG, "Shared Element: "+sharedElementNames.get(0));
+        }
+
+
+        @Override
         public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
             super.onMapSharedElements(names, sharedElements);
             if(mTempReenterTransition != null){
@@ -75,11 +82,21 @@ public class ArticleListActivity extends ActionBarActivity implements
                     names.add(newTransitionName);
                     sharedElements.clear();
                     sharedElements.put(newTransitionName, newSharedElement);
+                    Log.d(TAG, "New transition name: "+newTransitionName+newSharedElement);
 
                 }
                 mTempReenterTransition = null;
             }else {
-
+                View navigationBar = findViewById(android.R.id.navigationBarBackground);
+                View statusBar = findViewById(android.R.id.statusBarBackground);
+                if (navigationBar != null) {
+                    names.add(navigationBar.getTransitionName());
+                    sharedElements.put(navigationBar.getTransitionName(), navigationBar);
+                }
+                if (statusBar != null) {
+                    names.add(statusBar.getTransitionName());
+                    sharedElements.put(statusBar.getTransitionName(), statusBar);
+                }
             }
         }
     };
@@ -115,6 +132,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             mRecyclerView.scrollToPosition(currentposition);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
+            Log.d(TAG, "POSPONEEEEEEEEEEE");
         }
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -123,12 +141,11 @@ public class ArticleListActivity extends ActionBarActivity implements
                 mRecyclerView.requestLayout();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startPostponedEnterTransition();
+                    Log.d(TAG, "STARTTTTTTTTTTTT");
                 }
                 return true;
             }
         });
-
-
     }
 
     private void refresh() {
@@ -208,6 +225,8 @@ public class ArticleListActivity extends ActionBarActivity implements
                 public void onClick(View view) {
                     //Add transition animation on activity exit
                     Bundle bundle = null;
+                    Log.d(TAG, "TRANSITION NAME IN MAIN ACTIVITY "+vh.thumbnailView.getTransitionName());
+
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                     {
                         bundle = ActivityOptionsCompat.
@@ -244,7 +263,6 @@ public class ArticleListActivity extends ActionBarActivity implements
                 holder.thumbnailView.setTransitionName(Constants.article_name[position]);
             }
             holder.thumbnailView.setTag(Constants.article_name[position]);
-
             imageLoader.get(mCursor.getString(ArticleLoader.Query.THUMB_URL), new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {

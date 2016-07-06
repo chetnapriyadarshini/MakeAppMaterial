@@ -74,7 +74,7 @@ public class ArticleDetailActivity extends ActionBarActivity
                     names.clear();
                     names.add(sharedElement.getTransitionName());
                     sharedElements.clear();
-                        sharedElements.put(sharedElement.getTransitionName(), sharedElement);
+                    sharedElements.put(sharedElement.getTransitionName(), sharedElement);
                     }
 
                 }
@@ -245,14 +245,6 @@ public class ArticleDetailActivity extends ActionBarActivity
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
 
             super.setPrimaryItem(container, position, object);
-            Log.d(LOG_TAG , "Called for positionnnn "+position);
-            ImageView imageView = (ImageView) container.findViewById(R.id.photo);
-            if(imageView != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    imageView.setTransitionName(getString(R.string.poster).concat(String.valueOf(position)));
-                    Log.d(LOG_TAG, "POSITION QUERIEDDDDDDDD PRIMARY ITEM: " + imageView.getTransitionName());
-                }
-            }
             ArticleDetailFragment fragment = (ArticleDetailFragment) object;
             if (fragment != null) {
                 mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
