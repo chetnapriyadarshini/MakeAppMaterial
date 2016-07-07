@@ -1,5 +1,7 @@
 package com.example.xyzreader.ui;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -253,22 +255,29 @@ public class ArticleDetailFragment extends Fragment implements
         }
     }
 
+
+
     private void startPostponedEnterTransition() {
-        int pos = getArguments().getInt(ARG_ITEM_POS);
-        int starting_pos = getArguments().getInt(ARG_ARTICLE_START_POS);
-        if(pos == starting_pos){
-            Log.d(TAG, "TRANSITION NAME IN FRAGMENT: "+mPhotoView.getTransitionName());
-            mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int pos = getArguments().getInt(ARG_ITEM_POS);
+            int starting_pos = getArguments().getInt(ARG_ARTICLE_START_POS);
+            if (pos == starting_pos) {
+                mPhotoView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        mPhotoView.getViewTreeObserver().removeOnPreDrawListener(this);
                         getActivity().startPostponedEnterTransition();
+
+                        return true;
                     }
-                    return true;
-                }
-            });
-        }
+                });/*
+                Slide slide = new Slide(Gravity.BOTTOM);
+                slide.addTarget(R.id.article_body);
+                slide.setInterpolator(AnimationUtils.
+                        loadInterpolator(getActivityCast(), android.R.interpolator.linear_out_slow_in));
+                slide.setDuration(android.R.integer.config_shortAnimTime);
+                getActivityCast().getWindow().setEnterTransition(slide);*/
+
+            }
     }
 
     @Override
@@ -314,5 +323,11 @@ public class ArticleDetailFragment extends Fragment implements
 
     public ImageView getPhotoView() {
         return mPhotoView;
+    }
+
+    public void onEnterAnimationComplete() {
+        final int scrollPos = getResources().getDimensionPixelSize(R.dimen.initscrollupdist);
+        Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", scrollPos).setDuration(300);
+        animator.start();
     }
 }

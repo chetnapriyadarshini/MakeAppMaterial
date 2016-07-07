@@ -84,6 +84,12 @@ public class ArticleDetailActivity extends ActionBarActivity
     private ArticleDetailFragment mArticleDetailFragment;
 
     @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        mArticleDetailFragment.onEnterAnimationComplete();
+    }
+
+    @Override
     public void finishAfterTransition() {
         mIsReturning = true;
         Intent intent = new Intent();
