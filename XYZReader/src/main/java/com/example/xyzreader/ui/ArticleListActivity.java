@@ -60,12 +60,6 @@ public class ArticleListActivity extends ActionBarActivity implements
     private Bundle mTempReenterTransition;
 
     private SharedElementCallback sharedElementCallback = new SharedElementCallback() {
-        @Override
-        public void onSharedElementStart(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
-            super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots);
-            Log.d(TAG, "Shared Element: "+sharedElementNames.get(0));
-        }
-
 
         @Override
         public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
@@ -83,6 +77,8 @@ public class ArticleListActivity extends ActionBarActivity implements
                     sharedElements.clear();
                     sharedElements.put(newTransitionName, newSharedElement);
                     Log.d(TAG, "New transition name: "+newTransitionName+newSharedElement);
+                    if(mRecyclerView == null)
+                        Log.d(TAG , "Recyler View nulllllllll");
 
                 }
                 mTempReenterTransition = null;
@@ -100,6 +96,7 @@ public class ArticleListActivity extends ActionBarActivity implements
             }
         }
     };
+    private boolean isTransitionPending = false;
 
 
     @Override
@@ -127,21 +124,33 @@ public class ArticleListActivity extends ActionBarActivity implements
         super.onActivityReenter(resultCode, data);
         mTempReenterTransition = new Bundle(data.getExtras());
         int startingposition = mTempReenterTransition.getInt(EXTRA_STARTING_ARTICLE_POSITION);
-        int currentposition = mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION);
-        if(startingposition != currentposition)
-            mRecyclerView.scrollToPosition(currentposition);
+        final int currentposition = mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION);
+        if(startingposition != currentposition) {
+            //call notify data set changed to ensure the new view is bound to the recycler view
+            //this addresses situations when we are returning from the view after page change
+            //this view was not visible in the initial window as we did not scroll down
+            mRecyclerView.getAdapter().notifyItemChanged(currentposition);
+            mRecyclerView.smoothScrollToPosition(currentposition);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            Log.d(TAG, "POSPONEEEEEEEEEEE");
+            Log.d(TAG, "POSTPONEEEEEEEEEEE");
         }
+
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
                 mRecyclerView.requestLayout();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startPostponedEnterTransition();
-                    Log.d(TAG, "STARTTTTTTTTTTTT");
+                    //we make sure that the view we are trying to return transition to is bound
+                    //If it is not we wait for it to be attached to the window
+                    //else we start the transition
+                    if (mRecyclerView.findViewHolderForAdapterPosition(currentposition) == null)
+                        isTransitionPending = true;
+                    else {
+                        startPostponedEnterTransition();
+                    }
                 }
                 return true;
             }
@@ -190,11 +199,12 @@ public class ArticleListActivity extends ActionBarActivity implements
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         Adapter adapter = new Adapter(cursor);
         adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
+
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -219,7 +229,6 @@ public class ArticleListActivity extends ActionBarActivity implements
         public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
             final ViewHolder vh = new ViewHolder(view);
-
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -246,6 +255,7 @@ public class ArticleListActivity extends ActionBarActivity implements
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
+            Log.d(TAG, "View holder bind for "+position+" position");
             mCursor.moveToPosition(position);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             holder.subtitleView.setText(
@@ -290,6 +300,25 @@ public class ArticleListActivity extends ActionBarActivity implements
         @Override
         public int getItemCount() {
             return mCursor.getCount();
+        }
+
+        @Override
+        public void onViewAttachedToWindow(ViewHolder holder) {
+            super.onViewAttachedToWindow(holder);
+            int pos = holder.getAdapterPosition();
+            //Now that the view has been attached to the window, we check if it has any pending
+            //transitions, if yes we proceed with the transition
+            Log.d(TAG, "View at position "+pos+" attached to window");
+            if(isTransitionPending && mTempReenterTransition!= null
+                    && mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION) == pos){
+                Log.d(TAG, "Selected View at "+pos+"position has been attached, we can proceed with the transition");
+                isTransitionPending = false;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mRecyclerView.smoothScrollToPosition(pos);
+                    startPostponedEnterTransition();
+                    Log.d(TAG, "STARTTTTTTTTTTTT");
+                }
+            }
         }
     }
 
