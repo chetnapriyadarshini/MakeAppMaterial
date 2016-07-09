@@ -16,6 +16,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
@@ -224,8 +225,8 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                               // Palette p = Palette.generate(bitmap, 12);
-                              //  mMutedColor = p.getDarkMutedColor(0xFF333333);
+                                Palette p = Palette.generate(bitmap, 12);
+                                mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     startPostponedEnterTransition();
                                 }
@@ -234,8 +235,8 @@ public class ArticleDetailFragment extends Fragment implements
                                 mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                         bitmap.getHeight()));
                                 //commenting this out, to see how a complete image background looks
-                                /*mRootView.findViewById(R.id.meta_bar)
-                                        .setBackgroundColor(mMutedColor);*/
+                                mRootView.findViewById(R.id.meta_bar)
+                                        .setBackgroundColor(mMutedColor);
                                 updateStatusBar();
                             }
                         }
