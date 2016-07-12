@@ -2,11 +2,8 @@ package com.example.xyzreader.ui;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.app.SharedElementCallback;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,15 +17,11 @@ import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,8 +30,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-
-import java.util.List;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -68,6 +59,7 @@ public class ArticleDetailFragment extends Fragment implements
     private View mBackground_protection_view;
     private int mScrollY;
     private boolean mIsCard = false;
+    private boolean mNeedTitleBckgr = true;
     private int mStatusBarFullOpacityBottom;
 
     /**
@@ -122,6 +114,8 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
+        mNeedTitleBckgr = getResources().getBoolean(R.bool.need_title_background);
+        Log.d(TAG, "Need title background: "+mNeedTitleBckgr);
         mDrawInsetsFrameLayout = (DrawInsetsFrameLayout)
                 mRootView.findViewById(R.id.draw_insets_frame_layout);
         mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
@@ -132,15 +126,17 @@ public class ArticleDetailFragment extends Fragment implements
         });
 
         mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview);
-        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged() {
-                mScrollY = mScrollView.getScrollY();
-                getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-                updateStatusBar();
-            }
-        });
+        if(!mNeedTitleBckgr) {
+            mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
+                @Override
+                public void onScrollChanged() {
+                    mScrollY = mScrollView.getScrollY();
+                    getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
+                    mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
+                    updateStatusBar();
+                }
+            });
+        }
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -225,8 +221,6 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                Palette p = Palette.generate(bitmap, 12);
-                                mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     startPostponedEnterTransition();
                                 }
@@ -235,8 +229,13 @@ public class ArticleDetailFragment extends Fragment implements
                                 mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                         bitmap.getHeight()));
                                 //commenting this out, to see how a complete image background looks
-                                mRootView.findViewById(R.id.meta_bar)
-                                        .setBackgroundColor(mMutedColor);
+                                if(mNeedTitleBckgr) {
+                                    Palette p = Palette.generate(bitmap, 12);
+                                    mMutedColor = p.getDarkMutedColor(0xFF333333);
+                                    mRootView.findViewById(R.id.meta_bar)
+                                            .setBackgroundColor(mMutedColor);
+                                    Log.d(TAG, "Set background color for title backgr ");
+                                }
                                 updateStatusBar();
                             }
                         }
@@ -327,8 +326,12 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     public void onEnterAnimationComplete() {
-        final int scrollPos = getResources().getDimensionPixelSize(R.dimen.initscrollupdist);
-        Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", scrollPos).setDuration(300);
-        animator.start();
+        Log.d(TAG, "On enter animation complete "+mNeedTitleBckgr);
+        if(!mNeedTitleBckgr) {
+            Log.d(TAG, "Scroll up by "+mPhotoView.getHeight());
+            final int scrollPos = getResources().getDimensionPixelSize(R.dimen.initscrollupdist);
+            Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", scrollPos).setDuration(300);
+            animator.start();
+        }
     }
 }

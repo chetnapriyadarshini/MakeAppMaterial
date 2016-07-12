@@ -9,5 +9,6 @@
     <dimen name="fab_margin">24dp</dimen>
     <dimen name="fab_margin_right">4dp</dimen>
     <dimen name="initscrollupdist">200dp</dimen>
+    <dimen name="detail_meta_bar_land_height">0dp</dimen>
 
 </resources>
