@@ -83,15 +83,18 @@ public class ArticleListActivity extends ActionBarActivity implements
                 }
                 mTempReenterTransition = null;
             }else {
-                View navigationBar = findViewById(android.R.id.navigationBarBackground);
-                View statusBar = findViewById(android.R.id.statusBarBackground);
-                if (navigationBar != null) {
-                    names.add(navigationBar.getTransitionName());
-                    sharedElements.put(navigationBar.getTransitionName(), navigationBar);
-                }
-                if (statusBar != null) {
-                    names.add(statusBar.getTransitionName());
-                    sharedElements.put(statusBar.getTransitionName(), statusBar);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    View navigationBar = findViewById(android.R.id.navigationBarBackground);
+                    View statusBar = findViewById(android.R.id.statusBarBackground);
+                    if (navigationBar != null) {
+                        names.add(navigationBar.getTransitionName());
+                        sharedElements.put(navigationBar.getTransitionName(), navigationBar);
+                    }
+                    if (statusBar != null) {
+                        names.add(statusBar.getTransitionName());
+                        sharedElements.put(statusBar.getTransitionName(), statusBar);
+                    }
                 }
             }
         }
@@ -234,7 +237,7 @@ public class ArticleListActivity extends ActionBarActivity implements
                 public void onClick(View view) {
                     //Add transition animation on activity exit
                     Bundle bundle = null;
-                    Log.d(TAG, "TRANSITION NAME IN MAIN ACTIVITY "+vh.thumbnailView.getTransitionName());
+                //    Log.d(TAG, "TRANSITION NAME IN MAIN ACTIVITY "+vh.thumbnailView.getTransitionName());
 
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                     {
