@@ -38,6 +38,7 @@ public class ArticleDetailActivity extends ActionBarActivity
 
     private static final String LOG_TAG = ArticleListActivity.class.getSimpleName();
     private static final String STATE_CURRENT_PAGE_POSITION = "state_current_page_position";
+    private static final String TAG = ArticleDetailActivity.class.getSimpleName();
 
     private Cursor mCursor;
     private long mStartId;
@@ -86,6 +87,7 @@ public class ArticleDetailActivity extends ActionBarActivity
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
+        Log.d(TAG, "ENTER ANIMATION COMPLETEEEE");
         mArticleDetailFragment.onEnterAnimationComplete();
     }
 

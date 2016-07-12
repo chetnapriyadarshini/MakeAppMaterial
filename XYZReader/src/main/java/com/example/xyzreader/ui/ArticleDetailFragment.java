@@ -221,20 +221,27 @@ public class ArticleDetailFragment extends Fragment implements
                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    startPostponedEnterTransition();
-                                }
                                 mPhotoView.setImageBitmap(bitmap);
-                                Log.d(TAG, "Photo view height: "+bitmap.getHeight());
-                                mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                        bitmap.getHeight()));
+                           //     Log.d(TAG, "Photo view height: "+bitmap.getHeight());
+                                int height = bitmap.getHeight();
                                 //commenting this out, to see how a complete image background looks
                                 if(mNeedTitleBckgr) {
+                                    mBackground_protection_view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.
+                                            MATCH_PARENT, height));
                                     Palette p = Palette.generate(bitmap, 12);
                                     mMutedColor = p.getDarkMutedColor(0xFF333333);
                                     mRootView.findViewById(R.id.meta_bar)
                                             .setBackgroundColor(mMutedColor);
-                                    Log.d(TAG, "Set background color for title backgr ");
+
+                                }
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    Log.d(TAG, " Start postponed enter transitionnnnnnnn");
+                                    startPostponedEnterTransition();
+                                } else if(!mNeedTitleBckgr){
+                                    Log.d(TAG, " Scroll on pre lollipop devicesss");
+                                    Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", height - (height/2))
+                                            .setDuration(300);
+                                    animator.start();
                                 }
                                 updateStatusBar();
                             }
@@ -269,7 +276,8 @@ public class ArticleDetailFragment extends Fragment implements
 
                         return true;
                     }
-                });/*
+                });
+                /*
                 Slide slide = new Slide(Gravity.BOTTOM);
                 slide.addTarget(R.id.article_body);
                 slide.setInterpolator(AnimationUtils.
@@ -328,7 +336,7 @@ public class ArticleDetailFragment extends Fragment implements
     public void onEnterAnimationComplete() {
         Log.d(TAG, "On enter animation complete "+mNeedTitleBckgr);
         if(!mNeedTitleBckgr) {
-            Log.d(TAG, "Scroll up by "+mPhotoView.getHeight());
+     //       Log.d(TAG, "Scroll up by "+mPhotoView.getHeight());
             final int scrollPos = getResources().getDimensionPixelSize(R.dimen.initscrollupdist);
             Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", scrollPos).setDuration(300);
             animator.start();
