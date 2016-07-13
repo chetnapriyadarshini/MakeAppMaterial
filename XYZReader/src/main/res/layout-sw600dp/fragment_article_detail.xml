@@ -10,15 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include layout ="@layout/article_body_vertical_setting"/>
 
-            <include layout ="@layout/article_body_vertical_setting"/>
-
-            <include layout="@layout/article_body_layout"/>
-        </LinearLayout>
     </com.example.xyzreader.ui.ObservableScrollView>
 
 

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
+
 
 <FrameLayout android:id="@+id/photo_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="wrap_content">
 <!--suppress AndroidLintContentDescription -->
 
 
@@ -54,7 +59,19 @@
         android:layout_height="wrap_content"
         android:textColor="#8fff" />
 </LinearLayout>
-
-
-
 </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/share_fab"
+        android:layout_gravity="right|end"
+        android:layout_marginTop="@dimen/fab_top_margin"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        fab:backgroundTint="@color/colorAccent"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:src="@drawable/ic_share"
+        android:elevation="@dimen/fab_elevation"
+        android:contentDescription="@string/action_share"/>
+
+    <include layout="@layout/article_body_layout"/>
+</LinearLayout>

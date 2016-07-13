@@ -10,14 +10,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.transition.Slide;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -49,9 +46,9 @@ public class ArticleDetailActivity extends ActionBarActivity
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-    private View mUpAndShareButtonContainer;
+    private View mUpButtonContainer;
     private View mUpButton;
-    private View mShareButton;
+  //  private View mShareButton;
     private boolean mIsReturning;
     private int mStartingposition;
     private int mCurentposition;
@@ -137,10 +134,10 @@ public class ArticleDetailActivity extends ActionBarActivity
                 mUpButton.animate()
                         .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
                         .setDuration(300);
-
-                mShareButton.animate()
+                //Commenting it out as the rubric required share button to be fab
+                /*mShareButton.animate()
                         .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
-                        .setDuration(300);
+                        .setDuration(300);*/
             }
 
             @Override
@@ -150,9 +147,9 @@ public class ArticleDetailActivity extends ActionBarActivity
                 }
                 mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
                 mCurentposition = position;
-                updateUpAndShareButtonPosition();
+                updateUpButtonPosition();
             }
-        });
+        });/*
         mShareButton = findViewById(R.id.share_fab);
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +160,8 @@ public class ArticleDetailActivity extends ActionBarActivity
                         .getIntent(), getString(R.string.action_share)));
             }
         });
-        mUpAndShareButtonContainer = findViewById(R.id.up_container);
+        */
+        mUpButtonContainer = findViewById(R.id.up_container);
 
         mUpButton = findViewById(R.id.action_up);
         mUpButton.setOnClickListener(new View.OnClickListener() {
@@ -174,15 +172,15 @@ public class ArticleDetailActivity extends ActionBarActivity
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mUpAndShareButtonContainer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            mUpButtonContainer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
                         view.onApplyWindowInsets(windowInsets);
                         mTopInset = windowInsets.getSystemWindowInsetTop();
                     }
-                    mUpAndShareButtonContainer.setTranslationY(mTopInset);
-                    updateUpAndShareButtonPosition();
+                    mUpButtonContainer.setTranslationY(mTopInset);
+                    updateUpButtonPosition();
                     return windowInsets;
                 }
             });
@@ -237,14 +235,17 @@ public class ArticleDetailActivity extends ActionBarActivity
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
         if (itemId == mSelectedItemId) {
             mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
-            updateUpAndShareButtonPosition();
+            updateUpButtonPosition();
         }
     }
 
-    private void updateUpAndShareButtonPosition() {
+    private void updateUpButtonPosition() {
         int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
         mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
-        mShareButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
+
+        //Commenting it out as the rubric required share button to be fab
+        /*
+        mShareButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));*/
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -259,7 +260,7 @@ public class ArticleDetailActivity extends ActionBarActivity
             mArticleDetailFragment = (ArticleDetailFragment) object;
             if (mArticleDetailFragment != null) {
                 mSelectedItemUpButtonFloor = mArticleDetailFragment.getUpButtonFloor();
-                updateUpAndShareButtonPosition();
+                updateUpButtonPosition();
             }
         }
 
