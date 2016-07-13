@@ -242,9 +242,8 @@ public class ArticleDetailFragment extends Fragment implements
                                     startPostponedEnterTransition();
                                 } else if(!mNeedTitleBckgr){
                                    // Log.d(TAG, " Scroll on pre lollipop devicesss");
-                                    Animator animator = ObjectAnimator.ofInt(mScrollView, "scrollY", height - (height/2))
-                                            .setDuration(300);
-                                    animator.start();
+                                    ObjectAnimator.ofInt(mScrollView, "scrollY", height - (height/2))
+                                            .setDuration(300).start();
                                 }
                                 updateStatusBar();
                             }

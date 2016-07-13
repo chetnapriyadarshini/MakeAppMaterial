@@ -13,8 +13,11 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -30,7 +33,7 @@ import java.util.Map;
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
  */
-public class ArticleDetailActivity extends ActionBarActivity
+public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String LOG_TAG = ArticleListActivity.class.getSimpleName();
@@ -84,7 +87,7 @@ public class ArticleDetailActivity extends ActionBarActivity
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-        Log.d(TAG, "ENTER ANIMATION COMPLETEEEE");
+      //  Log.d(TAG, "ENTER ANIMATION COMPLETEEEE");
         mArticleDetailFragment.onEnterAnimationComplete();
     }
 
