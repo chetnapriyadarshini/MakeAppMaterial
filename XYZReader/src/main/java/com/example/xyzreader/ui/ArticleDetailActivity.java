@@ -170,7 +170,10 @@ public class ArticleDetailActivity extends AppCompatActivity
         mUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSupportNavigateUp();
+                //Comment onSupportNavigateUp, resolves bug glitch on returning to main
+                //activity on pressing up button
+               // onSupportNavigateUp();
+                onBackPressed();
             }
         });
 
