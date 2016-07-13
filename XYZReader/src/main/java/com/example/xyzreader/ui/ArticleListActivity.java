@@ -137,7 +137,7 @@ public class ArticleListActivity extends ActionBarActivity implements
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            Log.d(TAG, "POSTPONEEEEEEEEEEE");
+           // Log.d(TAG, "POSTPONEEEEEEEEEEE");
         }
 
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -258,7 +258,7 @@ public class ArticleListActivity extends ActionBarActivity implements
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            Log.d(TAG, "View holder bind for "+position+" position");
+            //Log.d(TAG, "View holder bind for "+position+" position");
             mCursor.moveToPosition(position);
             holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             holder.subtitleView.setText(
@@ -311,15 +311,15 @@ public class ArticleListActivity extends ActionBarActivity implements
             int pos = holder.getAdapterPosition();
             //Now that the view has been attached to the window, we check if it has any pending
             //transitions, if yes we proceed with the transition
-            Log.d(TAG, "View at position "+pos+" attached to window");
+           // Log.d(TAG, "View at position "+pos+" attached to window");
             if(isTransitionPending && mTempReenterTransition!= null
                     && mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION) == pos){
-                Log.d(TAG, "Selected View at "+pos+"position has been attached, we can proceed with the transition");
+              //  Log.d(TAG, "Selected View at "+pos+"position has been attached, we can proceed with the transition");
                 isTransitionPending = false;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     mRecyclerView.smoothScrollToPosition(pos);
                     startPostponedEnterTransition();
-                    Log.d(TAG, "STARTTTTTTTTTTTT");
+                //    Log.d(TAG, "STARTTTTTTTTTTTT");
                 }
             }
         }
