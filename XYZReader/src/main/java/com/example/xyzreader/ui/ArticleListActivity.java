@@ -65,6 +65,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         @Override
         public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
             super.onMapSharedElements(names, sharedElements);
+            Log.d(TAG, "SHARED ELEMENT CALLBACK "+mTempReenterTransition);
             if(mTempReenterTransition != null){
                 int startingposition = mTempReenterTransition.getInt(EXTRA_STARTING_ARTICLE_POSITION);
                 int currentposition = mTempReenterTransition.getInt(EXTRA_CURRENT_ARTICLE_POSITION);
@@ -84,7 +85,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                 }
                 mTempReenterTransition = null;
             }else {
-
+/*
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     View navigationBar = findViewById(android.R.id.navigationBarBackground);
                     View statusBar = findViewById(android.R.id.statusBarBackground);
@@ -96,7 +97,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                         names.add(statusBar.getTransitionName());
                         sharedElements.put(statusBar.getTransitionName(), statusBar);
                     }
-                }
+                }*/
             }
         }
     };
@@ -138,7 +139,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-           // Log.d(TAG, "POSTPONEEEEEEEEEEE");
+            Log.d(TAG, "POSTPONEEEEEEEEEEE");
         }
 
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
